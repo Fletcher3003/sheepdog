@@ -6,7 +6,9 @@ classdef sheep < agent
         
         % Set weightings for target priorities
         dog_priority = -5;
-        wall_priority = 2;
+        sheep_priority = 5;
+        wall_priority = 100;
+        safeDist = 40;
     end 
     
     methods
@@ -21,30 +23,48 @@ classdef sheep < agent
             ele.position = [-50;-50] + 100*rand(2,1);
         end
         
-        function shepherd(object,pack,timestep)
+        function shepherd(object,pack,herd,timestep)
             bearing = [0 0]';
             
             % Get vectors to herd of agents // CURRENTLY NO OTHER DOGS
+            dogLocs = zeros(2,length(pack));
+            dogDist = zeros(length(pack));
+            dogVec = zeros(2,1);
+            sheepLoc = zeros(2,1);
             for i = 1:length(pack)
-                temp = object.getVector(pack(i));
-                bearing = bearing + object.get.dog_priority*temp/norm(temp); %not sure what you're doing
+                dogLocs(:,i) = object.getVector(pack(i));
+                dogDist(i)=norm(object.getVector(pack(i)));
+                dogVec = dogVec + dogLocs(:,i)/norm(dogLocs(:,i))^3; % r^2 weighting
+%                 bearing = bearing + object.get.dog_priority*dogLoc/(norm(dogLoc)^2); %not sure what you're doing
             end
+            for i = 1:length(herd)
+                sheepLoc = sheepLoc + object.getVector(herd(i))/length(herd);
+%                 bearing = bearing + object.get.dog_priority*dogLoc/(norm(dogLoc)^2); %not sure what you're doing
+            end
+            if (min(dogDist) < object.safeDist) % safe so random walk
+                bearing = [-0.5;-0.5]+rand(1,2)';
+                bearing = bearing/norm(bearing); 
+            else
+                bearing = bearing + object.get.dog_priority*dogVec + object.get.sheep_priority*sheepLoc;
+            end
+        
+            
             
             % Get wall properties
             % Currently square box
             locus = object.get.position;
             
             % Check x direction
-            if locus(1) < -90
+            if locus(1) < -40
                 bearing = bearing + object.get.wall_priority*[1 0]';
-            elseif locus(1) > 90
+            elseif locus(1) > 40
                 bearing = bearing + object.get.wall_priority*[-1 0]';
             end
             
             % Check y direction
-            if locus(2) < -90
+            if locus(2) < -40
                 bearing = bearing + object.get.wall_priority*[0 1]';
-            elseif locus(2) > 90
+            elseif locus(2) > 40
                 bearing = bearing + object.get.wall_priority*[0 -1]';
             end
             

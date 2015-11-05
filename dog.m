@@ -6,7 +6,7 @@ classdef dog < agent
         
         % Set weightings for target priorities
         sheep_priority = 5;
-        wall_priority = 2;
+        wall_priority = 0;
     end 
     
     methods
@@ -36,16 +36,16 @@ classdef dog < agent
             locus = object.get.position;
             
             % Check x direction
-            if locus(1) < 0.1
+            if locus(1) < -90
                 bearing = bearing + object.get.wall_priority*[1 0]';
-            elseif locus(1) > 0.9
+            elseif locus(1) > 90
                 bearing = bearing + object.get.wall_priority*[-1 0]';
             end
             
             % Check y direction
-            if locus(2) < 0.1
+            if locus(2) < -90
                 bearing = bearing + object.get.wall_priority*[0 1]';
-            elseif locus(2) > 0.9
+            elseif locus(2) > 90
                 bearing = bearing + object.get.wall_priority*[0 -1]';
             end
             
