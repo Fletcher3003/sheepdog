@@ -1,34 +1,33 @@
-classdef dog < agent
-    %   DOG - Class representing the 'sheepdogs' or 'predators'
+classdef sheep < agent
+    %   sheep - Class representing the 'sheep' or 'prey'
     
     properties
-        type = 0;
+        type = 1;
         
         % Set weightings for target priorities
-        sheep_priority = 5;
+        dog_priority = -5;
         wall_priority = 2;
     end 
     
     methods
-        function ele = dog(id)
-            % Calls the agent constructor
-            ele = ele@agent(id);
+        function ele = sheep(id)
+            % Calls the agent constructor          
+            ele@agent(id);
             ele.type = 0;
-            
-            % Assign dog fitness
-            ele.fitness = 1;
-            
-            % Position dog
-            ele.position = [0.5 0.5]';
+            % Assign sheep fitness, including randomness
+            stochast = normrnd(0.5,0.25);
+            ele.fitness = stochast;
+            % Position sheep, including randomness
+            ele.position = [-50;-50] + 100*rand(2,1);
         end
         
-        function shepherd(object,herd,timestep)
+        function shepherd(object,pack,timestep)
             bearing = [0 0]';
             
             % Get vectors to herd of agents // CURRENTLY NO OTHER DOGS
-            for i = 1:length(herd)
-                temp = object.getVector(herd(i));
-                bearing = bearing + object.get.sheep_priority*temp/norm(temp);
+            for i = 1:length(pack)
+                temp = object.getVector(pack(i));
+                bearing = bearing + object.get.dog_priority*temp/norm(temp); %not sure what you're doing
             end
             
             % Get wall properties
@@ -36,9 +35,9 @@ classdef dog < agent
             locus = object.get.position;
             
             % Check x direction
-            if locus(1) < 0.1
+            if locus(1) < -90
                 bearing = bearing + object.get.wall_priority*[1 0]';
-            elseif locus(1) > 0.9
+            elseif locus(1) > 90
                 bearing = bearing + object.get.wall_priority*[-1 0]';
             end
             
@@ -60,3 +59,4 @@ classdef dog < agent
         end
     end
 end
+
