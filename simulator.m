@@ -33,7 +33,7 @@ fig=figure('Name','Simulator');
         rectangle('Position',[-50,-50,100,100],'FaceColor',[0.4,1,0.4],'EdgeColor',[0.8,0.8,0.1],'LineWidth',5)
         rectangle('Position',[20,20,15,15],'FaceColor',[0.6,1,0.6],'EdgeColor',[0.5,0.5,0.5],'LineWidth',1)
         for i=1:NSheep
-            plot(herd(i).position(1),herd(i).position(2),'.w', 'MarkerSize',25)
+            plot(herd(i).position(1),herd(i).position(2),herd(i).get.state, 'MarkerSize',25)
         end
         plot(pack(1).position(1),pack(1).position(2),'.k', 'MarkerSize',10)
         pause(0.001);

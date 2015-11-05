@@ -5,10 +5,11 @@ classdef sheep < agent
         type = 1;
         
         % Set weightings for target priorities
-        dog_priority = -5;
+        dog_priority = -15;
         sheep_priority = 5;
         wall_priority = 100;
         safeDist = 40;
+        state = '.w';
     end 
     
     methods
@@ -41,10 +42,12 @@ classdef sheep < agent
                 sheepLoc = sheepLoc + object.getVector(herd(i))/length(herd);
 %                 bearing = bearing + object.get.dog_priority*dogLoc/(norm(dogLoc)^2); %not sure what you're doing
             end
-            if (min(dogDist) < object.safeDist) % safe so random walk
+            if (min(dogDist) > object.safeDist) % safe so random walk
+                object.state = '.w';
                 bearing = [-0.5;-0.5]+rand(1,2)';
                 bearing = bearing/norm(bearing); 
             else
+                object.state = '.r';
                 bearing = bearing + object.get.dog_priority*dogVec + object.get.sheep_priority*sheepLoc;
             end
         
