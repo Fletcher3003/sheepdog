@@ -28,7 +28,7 @@ classdef sheep < agent
             bearing = [0 0]';
             
             % Get vectors to herd of agents // CURRENTLY NO OTHER DOGS
-            dogLocs = zeros(2,length(pack));
+            dogLocs = zeros(2,length(pack.agent_container(i)));
             dogDist = zeros(length(pack));
             dogVec = zeros(2,1);
             sheepLoc = zeros(2,1);

@@ -26,8 +26,8 @@ classdef dog < agent
             bearing = [0 0]';
             
             % Get vectors to herd of agents // CURRENTLY NO OTHER DOGS
-            for i = 1:length(herd)
-                temp = object.getVector(herd(i));
+            for i = 1:length(herd.agent_container)
+                temp = object.getVector(herd.agent_container(i));
                 bearing = bearing + object.get.sheep_priority*temp/norm(temp);
             end
             

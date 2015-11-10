@@ -4,12 +4,8 @@
 NSheep = input('How many sheep de ye wante ladde?\n');
 
 % define agents
-herd = sheep.empty(NSheep,0);
-pack = dog.empty(1,0);
-for i=1:NSheep
-    herd(i)=sheep(i);
-end
-pack(1) = dog(1);
+herd = swarm(NSheep,1);
+pack = swarm(1,2);
 
 % Index and timestep
 t=1;
@@ -27,15 +23,15 @@ fig=figure('Name','Simulator');
     % Plot
     while(1)
         for i=1:NSheep
-              herd(i).shepherd(pack,herd,dt);
+              herd.agent_container(i).agent.shepherd(pack,herd,dt);
         end
-        pack(1).shepherd(herd,dt)
+        pack.agent_container(1).agent.shepherd(herd,dt)
         rectangle('Position',[-50,-50,100,100],'FaceColor',[0.4,1,0.4],'EdgeColor',[0.8,0.8,0.1],'LineWidth',5)
         rectangle('Position',[20,20,15,15],'FaceColor',[0.6,1,0.6],'EdgeColor',[0.5,0.5,0.5],'LineWidth',1)
         for i=1:NSheep
-            plot(herd(i).position(1),herd(i).position(2),herd(i).get.state, 'MarkerSize',25)
+            plot(herd.agent_container(i).agent.position(1),herd.agent_container(i).agent.position(2),herd.agent_container(i).agent.state, 'MarkerSize',25)
         end
-        plot(pack(1).position(1),pack(1).position(2),'.k', 'MarkerSize',10)
+        plot(pack.agent_container(1).agent.position(1),pack.agent_container(1).agent.position(2),'.k', 'MarkerSize',10)
         pause(0.001);
         t=t+1;
 
