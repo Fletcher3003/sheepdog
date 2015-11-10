@@ -15,6 +15,11 @@ pack(1) = dog(1);
 t=1;
 dt=0.1;
 
+% Defnition of field and target area
+field = [-50 -50 100 100]
+
+pen = [20 20 15 15]
+
 %Figure
 fig=figure('Name','Simulator');
     hold on
@@ -30,13 +35,13 @@ fig=figure('Name','Simulator');
               herd(i).shepherd(pack,herd,dt);
         end
         pack(1).shepherd(herd,dt)
-        rectangle('Position',[-50,-50,100,100],'FaceColor',[0.4,1,0.4],'EdgeColor',[0.8,0.8,0.1],'LineWidth',5)
-        rectangle('Position',[20,20,15,15],'FaceColor',[0.6,1,0.6],'EdgeColor',[0.5,0.5,0.5],'LineWidth',1)
+        rectangle('Position',[field],'FaceColor',[0.4,1,0.4],'EdgeColor',[0.8,0.8,0.1],'LineWidth',5)
+        rectangle('Position',[pen],'FaceColor',[0.6,1,0.6],'EdgeColor',[0.5,0.5,0.5],'LineWidth',1)
         for i=1:NSheep
             plot(herd(i).position(1),herd(i).position(2),herd(i).get.state, 'MarkerSize',25)
         end
         plot(pack(1).position(1),pack(1).position(2),'.k', 'MarkerSize',10)
-        pause(0.001);
+        pause(0.0005);
         t=t+1;
 
         if ~ishghandle(fig) %Kill loop when closing figure

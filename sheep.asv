@@ -5,9 +5,12 @@ classdef sheep < agent
         type = 1;
         
         % Set weightings for target priorities
-        dog_priority = -5;
+        dog_priority = -15;
+        sheep_priority = 5;
         wall_priority = 100;
+        %Change safe distance from 40 to test wall fearing capabilities
         safeDist = 40;
+        state = '.w';
     end 
     
     methods
@@ -33,23 +36,28 @@ classdef sheep < agent
             for i = 1:length(pack)
                 dogLocs(:,i) = object.getVector(pack(i));
                 dogDist(i)=norm(object.getVector(pack(i)));
-                dogVec = dogVec + dogDist(i)/norm(dogDist(i))^2;
+                dogVec = dogVec + dogLocs(:,i)/norm(dogLocs(:,i))^3; % r^2 weighting
 %                 bearing = bearing + object.get.dog_priority*dogLoc/(norm(dogLoc)^2); %not sure what you're doing
             end
             for i = 1:length(herd)
                 sheepLoc = sheepLoc + object.getVector(herd(i))/length(herd);
 %                 bearing = bearing + object.get.dog_priority*dogLoc/(norm(dogLoc)^2); %not sure what you're doing
             end
-            if (min(dogDist) < object.safeDist) % safe so random walk
-                bearing = rand(1,2)';
+            if (min(dogDist) > object.safeDist) % safe so random walk
+                object.state = '.w';
+                bearing = [-0.5;-0.5]+rand(1,2)';
                 bearing = bearing/norm(bearing); 
             else
-                bearing = bearing + object.get.dog_priority*dogVec + sheepLoc;
+                object.state = '.r';
+                bearing = bearing + object.get.dog_priority*dogVec + object.get.sheep_priority*sheepLoc;
             end
         
             
             
-            % Get wall properties
+            % Get Vector to wall
+            
+            
+            
             % Currently square box
             locus = object.get.position;
             
