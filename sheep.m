@@ -32,6 +32,7 @@ classdef sheep < agent
             dogDist = zeros(length(pack));
             dogVec = zeros(2,1);
             sheepLoc = zeros(2,1);
+            
             for i = 1:length(pack)
                 dogLocs(:,i) = object.getVector(pack(i));
                 dogDist(i)=norm(object.getVector(pack(i)));
