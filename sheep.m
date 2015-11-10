@@ -8,7 +8,7 @@ classdef sheep < agent
         dog_priority = -15;
         sheep_priority = 5;
         wall_priority = 100;
-        %Change safe distance from 40 to test wall fearing capabilities
+        
         safeDist = 40;
         state = '.w';
     end 
@@ -55,13 +55,13 @@ classdef sheep < agent
             
             
             % Get Vector to wall
-            %if(
+           % if(sheepLoc(1,1)<
             
             
             % Currently square box
             locus = object.get.position;
             
-            % Check x direction
+            % Check x direction 
             if locus(1) < -40
                 bearing = bearing + object.get.wall_priority*[1 0]';
             elseif locus(1) > 40
