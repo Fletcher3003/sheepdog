@@ -17,8 +17,12 @@ dt=0.1;
 
 % Defnition of field and target area
 field = [-50 -50 100 100]
-
 pen = [20 20 15 15]
+
+
+minXField = field(1,1)
+minYField = field(1,2)
+maxXField = field(1,1)+field(1,
 
 %Figure
 fig=figure('Name','Simulator');

@@ -15,10 +15,15 @@ pack(1) = dog(1);
 t=1;
 dt=0.1;
 
-% Defnition of field and target area
+% Defnition of field and target area. No semicolons so 
 field = [-50 -50 100 100]
-
 pen = [20 20 15 15]
+
+
+minXField = field(1,1);
+minYField = field(1,2);
+maxXField = field(1,1)+field(1,3);
+maxYField = field(1,2)+field(1,4);
 
 %Figure
 fig=figure('Name','Simulator');

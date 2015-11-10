@@ -55,7 +55,7 @@ classdef sheep < agent
             
             
             % Get Vector to wall
-            
+            %if(
             
             
             % Currently square box
