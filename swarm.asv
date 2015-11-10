@@ -8,12 +8,13 @@ classdef swarm
         agent_container;
     end
     
-    properties(Constant)
-        Threshold = 2;
+    properties(static)
+        threshold = 2;
     end
     
     
     methods
+        
         function ele = swarm(n,agent_type);
             ele.agent_container
             switch agent_type
@@ -41,16 +42,7 @@ classdef swarm
             CoM = swarm.getCenterOfMass;
             acc = 0;
             for i=1:swarm.n_agents
-                acc = acc + norm(swarm.agent_container(i).agent.position-CoM);
-            end
-            acc = acc/swarm.n_agents;
-            if acc < swarm.Threshold
-                bool = 1;
-            else
-                bool =0;
-            end
-        end
-        
+                acc = acc + norm(swarm.agent_container(i).agent
     end
 end
                 
