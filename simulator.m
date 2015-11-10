@@ -43,3 +43,10 @@ fig=figure('Name','Simulator');
             break
         end
     end
+	
+	
+	
+	
+	
+	
+	%Sam's changes
