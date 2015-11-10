@@ -15,7 +15,8 @@ pack(1) = dog(1);
 t=1;
 dt=0.1;
 
-% Defnition of field and target area. No semicolons so 
+% Defnition of field and target area. No semicolons so hopefully writes to
+% workspace and lets me use it in sheep
 field = [-50 -50 100 100]
 pen = [20 20 15 15]
 
